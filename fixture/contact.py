@@ -25,3 +25,13 @@ class ContactHelper:
     def open(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
+
+    def delete_contact(self):
+        wd = self.app.wd
+        # select first contact
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        # submit deletion
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+
+
+
