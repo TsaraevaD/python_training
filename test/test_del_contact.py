@@ -1,4 +1,4 @@
-def test_delete_contact(app):
+def test_delete(app):
     app.session.login("admin", "secret")
-    app.contact.delete_contact()
+    app.contact.delete()
     app.session.logout()
