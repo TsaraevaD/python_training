@@ -9,15 +9,7 @@ class ContactHelper:
 
     def create(self, contact):
         wd = self.app.wd
-        wd.find_element_by_name("firstname").click()
-        wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(contact.firstname)
-        wd.find_element_by_name("middlename").click()
-        wd.find_element_by_name("middlename").clear()
-        wd.find_element_by_name("middlename").send_keys(contact.middlename)
-        wd.find_element_by_name("lastname").click()
-        wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(contact.lastname)
+        self.fill_contact_form(contact)
         # submit
         wd.find_element_by_xpath("//div[@id='content']/form/input[20]").click()
 
@@ -35,6 +27,12 @@ class ContactHelper:
         wd = self.app.wd
         self.select_first_contact()
         # fill contact form
+        self.fill_contact_form(contact)
+        # submit edition
+        wd.find_element_by_xpath("//input[@value='Update']").click()
+
+    def fill_contact_form(self, contact):
+        wd = self.app.wd
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.firstname)
@@ -44,14 +42,14 @@ class ContactHelper:
         wd.find_element_by_name("lastname").click()
         wd.find_element_by_name("lastname").clear()
         wd.find_element_by_name("lastname").send_keys(contact.lastname)
-        # submit edition
-        wd.find_element_by_xpath("//input[@value='Update']").click()
 
     def select_first_contact(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
         # select first contact
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
+
+
 
 
 
