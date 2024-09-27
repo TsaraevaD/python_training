@@ -49,6 +49,11 @@ class ContactHelper:
         # select first contact
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
 
+    def count(self):
+        wd = self.app.wd
+        return len(wd.find_elements_by_name("selected[]"))
+
+
 
 
 
