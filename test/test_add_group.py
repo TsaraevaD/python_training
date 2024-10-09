@@ -1,8 +1,23 @@
 from model.group import Group
 
 def test_add_group(app):
-    app.group.create(Group("test", "test", "test"))
+    old_groups = app.group.get_group_list()
+    group = Group("test", "test", "test")
+    app.group.create(group)
+    new_groups = app.group.get_group_list()
+    assert len(old_groups) + 1 == len(new_groups)
+    old_groups.append(group)
+    assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
+
 
 def test_add_empty_group(app):
-    app.group.create(Group("", "", ""))
+    old_groups = app.group.get_group_list()
+    group = Group("", "", "")
+    app.group.create(group)
+    new_groups = app.group.get_group_list()
+    assert len(old_groups) + 1 == len(new_groups)
+    old_groups.append(group)
+    assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
+
+
 
