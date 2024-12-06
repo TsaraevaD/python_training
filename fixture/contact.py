@@ -64,6 +64,7 @@ class ContactHelper:
     def change_by_id(self, id, contact):
         wd = self.app.wd
         self.select_contact_by_id(id)
+        wd.find_element_by_xpath("//a[@href='edit.php?id=%s']" % id).click()
         # fill contact form
         self.fill_contact_form(contact)
         # submit edition
