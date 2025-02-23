@@ -3,6 +3,7 @@ from fixture.session import SessionHelper
 from fixture. group import GroupHelper
 from fixture.contact import ContactHelper
 
+
 class Application:
 
     def __init__(self, browser, base_url):
@@ -29,7 +30,6 @@ class Application:
     def open_home_page(self):
         wd = self.wd
         wd.get(self.base_url)
-
 
     def destroy(self):
         self.wd.quit()

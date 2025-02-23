@@ -1,10 +1,10 @@
 import re
 from model.contact import Contact
 
+
 class ContactHelper:
     def __init__(self, app):
         self.app = app
-
 
     def return_to_home(self):
         wd = self.app.wd
@@ -60,7 +60,6 @@ class ContactHelper:
         wd.find_element_by_xpath("//input[@value='Update']").click()
         self.contact_cache = None
 
-
     def change_by_id(self, id, contact):
         wd = self.app.wd
         self.select_contact_by_id(id)
@@ -100,7 +99,6 @@ class ContactHelper:
             wd.find_element_by_link_text("home").click()
 
     contact_cache = None
-
 
     def get_contact_list(self):
         if self.contact_cache is None:
@@ -158,6 +156,27 @@ class ContactHelper:
         workphone = re.search("W: (.*)", text).group(1)
         mobilephone = re.search("M: (.*)", text).group(1)
         return Contact(homephone=homephone, mobilephone=mobilephone, workphone=workphone)
+
+    def add_to_group(self, id, group_id):
+        wd = self.app.wd
+        self.select_contact_by_id(id)
+        wd.find_element_by_name("to_group").click()
+        wd.find_element_by_xpath("//select[@name='to_group']/option[@value='%s']" % group_id).click()
+        wd.find_element_by_name("add").click()
+        wd.find_element_by_xpath("//a[@href='./?group=%s']" % group_id).click()
+
+    def delete_from_group(self, id, group_id):
+        wd = self.app.wd
+        self.select_contact_by_id(id)
+        wd.find_element_by_xpath("//select[@name='group']/option[@value='%s']" % group_id).click()
+        wd.find_element_by_xpath("//input[@value='%s']" % id).click()
+        wd.find_element_by_name("remove").click()
+        wd.find_element_by_xpath("//a[@href='./?group=%s']" % group_id).click()
+
+
+
+
+
 
 
 

@@ -1,6 +1,7 @@
 from model.contact import Contact
 import random
 
+
 def test_change(app, db, check_ui):
     if len(db.get_contact_list()) == 0:
         app.contact.add()

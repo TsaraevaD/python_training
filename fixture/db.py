@@ -1,6 +1,8 @@
 import pymysql.cursors
 from model.group import Group
 from model.contact import Contact
+
+
 class DbFixture:
 
     def __init__(self, host, name, user, password):
@@ -9,7 +11,6 @@ class DbFixture:
         self.user = user
         self.password = password
         self.connection = pymysql.connect(host=host, database=name, user=user, password=password, autocommit=True)
-
 
     def get_group_list(self):
         list = []
@@ -22,7 +23,6 @@ class DbFixture:
         finally:
             cursor.close()
         return list
-
 
     def get_contact_list(self):
         list = []
@@ -59,8 +59,6 @@ class DbFixture:
         finally:
             cursor.close()
         return list
-
-
 
     def destroy(self):
         self.connection.close()
