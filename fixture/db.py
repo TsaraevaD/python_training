@@ -28,34 +28,11 @@ class DbFixture:
         list = []
         cursor = self.connection.cursor()
         try:
-            cursor.execute("select id, firstname, lastname, address, email from addressbook")
+            cursor.execute("select id, firstname, lastname, address, home, mobile, work, email, email2, email3 from addressbook")
             for row in cursor:
-                (id, firstname, lastname, address, email) = row
-                list.append(Contact(id=str(id), firstname=firstname, lastname=lastname, address=address, email=email))
-        finally:
-            cursor.close()
-        return list
-
-    def get_phones_list(self):
-        list = []
-        cursor = self.connection.cursor()
-        try:
-            cursor.execute("select home, mobile, work from addressbook")
-            for row in cursor:
-                (home, mobile, work) = row
-                list.append(Contact(homephone=home, mobilephone=mobile, workphone=work))
-        finally:
-            cursor.close()
-        return list
-
-    def get_emails_list(self):
-        list = []
-        cursor = self.connection.cursor()
-        try:
-            cursor.execute("select email, email2, email3 from addressbook")
-            for row in cursor:
-                (email, email2, email3) = row
-                list.append(Contact(email=email, email2=email2, email3=email3))
+                (id, firstname, lastname, address, home, mobile, work, email, email2, email3) = row
+                list.append(Contact(id=str(id), firstname=firstname, lastname=lastname, address=address, homephone=home,
+                                    mobilephone=mobile, workphone=work, email=email, email2=email2, email3=email3))
         finally:
             cursor.close()
         return list

@@ -6,7 +6,7 @@ from model.group import Group
 db = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
 
 
-def test_delete_contact(app):
+def test_add_contact(app):
     if len(db.get_contact_list()) == 0:
         app.contact.add()
         app.contact.create(Contact(firstname="one", middlename="", lastname=""))
@@ -16,9 +16,10 @@ def test_delete_contact(app):
     contact = random.choice(contacts)
     groups = app.group.get_group_list()
     group = random.choice(groups)
-    if len(db.get_contacts_in_group(group)) == 0:
+    old = db.get_contacts_not_in_group(group)
+    if contact in old:
         app.contact.add_to_group(contact.id, group.id)
-    lst = db.get_contacts_in_group(group)
-    assert contact in lst
+    new = db.get_contacts_in_group(group)
+    assert contact in new
 
 

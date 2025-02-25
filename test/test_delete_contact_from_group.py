@@ -16,10 +16,11 @@ def test_delete_contact(app):
     contact = random.choice(contacts)
     groups = app.group.get_group_list()
     group = random.choice(groups)
-    if len(db.get_contacts_in_group(group)) == 0:
+    old = db.get_contacts_not_in_group(group)
+    if contact in old:
         app.contact.add_to_group(contact.id, group.id)
     app.contact.delete_from_group(contact.id, group.id)
-    lst = db.get_contacts_in_group(group)
-    assert contact not in lst
+    new = db.get_contacts_in_group(group)
+    assert contact not in new
 
 

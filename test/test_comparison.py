@@ -22,15 +22,13 @@ def test_phones_on_contact_view_page(app):
 
 def test_match_db(app, db):
     db_contacts = db.get_contact_list()
-    db_phones = db.get_phones_list()
-    db_emails = db.get_emails_list()
+    app_contacts = sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
     phones = []
-    for p in db_phones:
+    for p in db_contacts:
         phones.append(merge_phones_like_on_home_page(p))
     emails = []
-    for e in db_emails:
+    for e in db_contacts:
         emails.append(merge_emails_like_on_home_page(e))
-    app_contacts = sorted(app.contact.get_contact_list(), key=Contact.id_or_max)
     app_phones = [p.all_phones_from_home_page for p in app_contacts]
     app_emails = [e.all_emails_from_home_page for e in app_contacts]
     assert app_phones == phones
