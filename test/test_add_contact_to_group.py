@@ -16,9 +16,10 @@ def test_add_contact(app):
     contact = random.choice(contacts)
     groups = app.group.get_group_list()
     group = random.choice(groups)
-    old = db.get_contacts_not_in_group(Group(id=group.id))
+    old = db.get_contacts_in_group(Group(id=group.id))
     if contact in old:
-        app.contact.add_to_group(contact.id, group.id)
+        app.contact.delete_from_group(contact.id, group.id)
+    app.contact.add_to_group(contact.id, group.id)
     new = db.get_contacts_in_group(Group(id=group.id))
     assert contact in new
 
