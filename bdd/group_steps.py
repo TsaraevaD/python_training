@@ -69,8 +69,6 @@ def verify_group_modified(db, non_empty_group_list, random_group, app, check_ui,
     old_groups = non_empty_group_list
     new_groups = db.get_group_list()
     new_data.id = random_group.id
-    # index = old_groups.index(random_group)
-    # old_groups[index] = new_data
-    assert old_groups == new_groups
+    assert sorted(old_groups, key=Group.id_or_max) == sorted(new_groups, key=Group.id_or_max)
     if check_ui:
         assert sorted(new_groups, key=Group.id_or_max) == sorted(app.group.get_group_list(), key=Group.id_or_max)
